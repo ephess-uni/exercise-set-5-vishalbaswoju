@@ -4,7 +4,7 @@
 def line_count(infile):
     with open(infile, 'r') as fl:
         numberof_lines = fl.readlines()
-    print(len(numberof_lines)
+    print(len(numberof_lines))
 
 
 if __name__ == "__main__":
