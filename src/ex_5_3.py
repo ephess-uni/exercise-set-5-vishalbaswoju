@@ -6,7 +6,7 @@ This module contains an entry point that:
 - writes the file to the output file argument
 """
 import numpy as np
-from argparse import ArgumentParser
+import argparse
 
 if __name__ == "__main__":
     # Create your argument parser object here.
@@ -16,4 +16,13 @@ if __name__ == "__main__":
     # Tests will run your command using a system call.
     # To test your program with arguments, run it from the command line
     # (see README.md for more details)
-    pass
+    descp = "This program applies a standard scale transform to the data in infile and writes it to outfile"
+    parser = argparse.ArgumentParser(description=descp)
+    parser.add_argument("infile", type=argparse.FileType('r'))
+    parser.add_argument("outfile", type=argparse.FileType('w'))
+    args = parser.parse_args()
+    file_data = np.loadtxt(args.infile)
+    file_data -= file_data.mean()
+    std_=file_data.std()
+    processed=file_data/std_
+    np.savetxt(args.outfile, processed, fmt='%.2e')
